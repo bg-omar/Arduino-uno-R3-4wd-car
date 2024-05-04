@@ -2,8 +2,13 @@
 <project version="4">
   <component name="CidrRootsConfiguration">
     <sourceRoots>
-      <file path="$PROJECT_DIR$/src_remote" />
+      <file path="$PROJECT_DIR$/src_4wd_car" />
     </sourceRoots>
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/src" />
+      <file path="$PROJECT_DIR$/src_inductance" />
+      <file path="$PROJECT_DIR$/src_remote" />
+    </excludeRoots>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="PlatformIOSettings">
