@@ -6,7 +6,7 @@
 
 #include <PS3USB.h>
 #include <Wire.h>
-
+#include "main.h"
 #ifdef dobogusinclude
 #include <spi4teensy3.h>
 #endif
@@ -14,16 +14,17 @@
 #include "SPI.h"
 #include "motor.h"
 
-USB Usb;
+USB Usb3;
 boolean printAngle;
 uint8_t state = 0;
 /* You can create the instance of the class in two ways */
 //PS3USB PS3(&Usb); // This will just create the instance
-PS3USB PS3(&Usb,0x00,0x15,0x83,0x3D,0x0A,0x57); // This will also store the bluetooth address - this can be obtained from the dongle when running the sketch
+PS3USB PS3(&Usb3, 0x00, 0x15, 0x83, 0x3D, 0x0A, 0x57); // This will also store the bluetooth address - this can be obtained from the dongle when running the sketch
+
 
 void PS3controls::PS3setup() {
         while (!Serial); // Wait for serial port to connect - used on Leonardo, Teensy and other boards with built-in USB CDC serial connection
-        if (Usb.Init() == -1) {
+        if (Usb3.Init() == -1) {
             Serial.print(F("\r\nOSC did not start"));
             while (1); //halt
         }
@@ -31,7 +32,7 @@ void PS3controls::PS3setup() {
 };
 
 void PS3controls::PS3loop() {
-            Usb.Task();
+            Usb3.Task();
             if (PS3.PS3Connected) {
                 int RB_velocity, LB_velocity, RF_velocity, LF_velocity;
 
@@ -42,40 +43,41 @@ void PS3controls::PS3loop() {
                     PS3.getAnalogHat(RightHatY) > 137 || PS3.getAnalogHat(RightHatY) < 117) {
 
                     LF_velocity = (PS3.getAnalogHat(LeftHatY) - 128) - (PS3.getAnalogHat(LeftHatX) - 128);
-                    LB_velocity = (PS3.getAnalogHat(LeftHatY) - 128) - (PS3.getAnalogHat(LeftHatX) - 128);
                     RF_velocity = (PS3.getAnalogHat(LeftHatY) - 128) + (PS3.getAnalogHat(LeftHatX) - 128);
-                    RB_velocity = (PS3.getAnalogHat(LeftHatY) - 128) + (PS3.getAnalogHat(LeftHatX) - 128);
 
-                    Serial.print(F("\r\nLF_velocity: "));
-                    Serial.print(LF_velocity);
-                    Serial.print(F("\tLB_velocity: "));
-                    Serial.print(LB_velocity);
-                    Serial.print(F("\tRF_velocity: "));
-                    Serial.print(RF_velocity);
-                    Serial.print(F("\tRB_velocity: "));
-                    Serial.print(RB_velocity);
+                    LB_velocity = -((PS3.getAnalogHat(LeftHatY) - 128) - (PS3.getAnalogHat(LeftHatX) - 128));
+                    RB_velocity = -((PS3.getAnalogHat(LeftHatY) - 128) + (PS3.getAnalogHat(LeftHatX) - 128));
+
+//                    Serial.print(F("\r\nLF_velocity: "));
+//                    Serial.print(LF_velocity);
+//                    Serial.print(F("\tLB_velocity: "));
+//                    Serial.print(LB_velocity);
+//                    Serial.print(F("\tRF_velocity: "));
+//                    Serial.print(RF_velocity);
+//                    Serial.print(F("\tRB_velocity: "));
+//                    Serial.print(RB_velocity);
 
                 }
                 // Analog button values can be read from almost all buttons
                 if (PS3.getAnalogButton(L2) || PS3.getAnalogButton(R2)) {
-                    Serial.print(F("\r\nL2: "));
-                    Serial.print(PS3.getAnalogButton(L2));
-                    Serial.print(F("\tR2: "));
-                    Serial.print(PS3.getAnalogButton(R2));
+//                    Serial.print(F("\r\nL2: "));
+//                    Serial.print(PS3.getAnalogButton(L2));
+//                    Serial.print(F("\tR2: "));
+//                    Serial.print(PS3.getAnalogButton(R2));
 
                     LF_velocity = (PS3.getAnalogButton(R2)) - (PS3.getAnalogButton(L2));
-                    LB_velocity = LF_velocity;
+                    LB_velocity = -LF_velocity;
                     RF_velocity = LF_velocity;
-                    RB_velocity = LF_velocity;
+                    RB_velocity = -LF_velocity;
 
-                    Serial.print(F("\r\nLF_velocity: "));
-                    Serial.print(LF_velocity);
-                    Serial.print(F("\tLB_velocity: "));
-                    Serial.print(LB_velocity);
-                    Serial.print(F("\tRF_velocity: "));
-                    Serial.print(RF_velocity);
-                    Serial.print(F("\tRB_velocity: "));
-                    Serial.print(RB_velocity);
+//                    Serial.print(F("\r\nLF_velocity: "));
+//                    Serial.print(LF_velocity);
+//                    Serial.print(F("\tLB_velocity: "));
+//                    Serial.print(LB_velocity);
+//                    Serial.print(F("\tRF_velocity: "));
+//                    Serial.print(RF_velocity);
+//                    Serial.print(F("\tRB_velocity: "));
+//                    Serial.print(RB_velocity);
                 }
                 if (PS3.getButtonClick(PS))         Serial.print(F("\r\nPS"));
                 if (PS3.getButtonClick(TRIANGLE))   Serial.print(F("\r\nTraingle"));

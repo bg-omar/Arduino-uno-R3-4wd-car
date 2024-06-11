@@ -7,10 +7,10 @@
 
 #include "Adafruit_PCF8574.h"
 
-#define LF_PWM     4
-#define LB_PWM     5
-#define RF_PWM     6
-#define RB_PWM     7
+#define LF_PWM    32
+#define LB_PWM    33
+#define RF_PWM    25
+#define RB_PWM    26
 
 class Motor {
 

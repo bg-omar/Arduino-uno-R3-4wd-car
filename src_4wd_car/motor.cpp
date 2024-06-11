@@ -6,18 +6,12 @@
 #include <Adafruit_PCF8574.h>
 #include "main.h"
 
-#define LF_PWM     4
-#define LB_PWM     5
-#define RF_PWM     6
-#define RB_PWM     7
 /* Example for 8 output LEDs that are connected from power to the GPIO expander pins
  * Note the LEDs must be connected with the CATHODES to the expander, to SINK current!
  * The PCF8574 cannot SOURCE current!
  */
 
 Adafruit_PCF8574  Motor::pcf;
-
-
 
 /********************************************** the function to run motor **************************************/
 // section motor function
@@ -63,19 +57,26 @@ void Motor::Car_Back(){
 
 void Motor::motor_setup() {
 
-    Serial.println("Adafruit PCF8574 LED blink test");
+    Serial.println("Adafruit PCF8574 4WD motors");
 
     if (!pcf.begin(0x20, &Wire)) {
         Serial.println("Couldn't find PCF8574");
-        while (1);
     }
     pinMode(LF_PWM, OUTPUT);
     pinMode(LB_PWM, OUTPUT);
     pinMode(RF_PWM, OUTPUT);
     pinMode(RB_PWM, OUTPUT);
+	Serial.println("PWM using: ");
+	Serial.println(LF_PWM);
+	Serial.println(LB_PWM);
+	Serial.println(RF_PWM);
+	Serial.println(RB_PWM);
 
-    for (uint8_t p=0; p<8; p++) {
+
+	for (uint8_t p=0; p<8; p++) {
+		Serial.print("i2c make PCF8574 ");
         pcf.pinMode(p, OUTPUT);
+		Serial.println(p);
     }
     delay(500);
 }
