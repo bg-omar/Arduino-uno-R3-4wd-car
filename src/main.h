@@ -7,9 +7,9 @@
 
 #include <cstdint>
 
-#define EVENTS 0
+#define EVENTS 1
 #define BUTTONS 0
-#define JOYSTICKS 0
+#define JOYSTICKS 1
 #define SENSORS 0
 #define THUMB_STICKS 1
 
