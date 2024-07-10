@@ -1,7 +1,7 @@
 //
 // Created by mr on 11/13/2023.
 //
-#include <Arduino.h>
+
 #include "motor.h"
 #include <Adafruit_PCF8574.h>
 #include "main.h"
@@ -59,24 +59,26 @@ void Motor::motor_setup() {
 
     Serial.println("Adafruit PCF8574 4WD motors");
 
-    if (!pcf.begin(0x20, &Wire)) {
+    if (!pcf.begin()) {
         Serial.println("Couldn't find PCF8574");
     }
     pinMode(LF_PWM, OUTPUT);
     pinMode(LB_PWM, OUTPUT);
     pinMode(RF_PWM, OUTPUT);
     pinMode(RB_PWM, OUTPUT);
-	Serial.println("PWM using: ");
-	Serial.println(LF_PWM);
-	Serial.println(LB_PWM);
-	Serial.println(RF_PWM);
-	Serial.println(RB_PWM);
+	Serial.print("PWM using: ");
+	Serial.print(LF_PWM);Serial.print(", ");
+	Serial.print(LB_PWM);Serial.print(", ");
+	Serial.print(RF_PWM);Serial.print(", ");
+	Serial.print(RB_PWM);Serial.println(" ");
 
 
+	Serial.print("i2c make PCF8574 ");
 	for (uint8_t p=0; p<8; p++) {
-		Serial.print("i2c make PCF8574 ");
         pcf.pinMode(p, OUTPUT);
-		Serial.println(p);
+		Serial.print(p);
+		Serial.print(", ");
     }
+	Serial.println(" ");
     delay(500);
 }

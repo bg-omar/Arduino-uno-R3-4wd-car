@@ -1,8 +1,9 @@
 #include <Arduino.h>
 #include "main.h"
 #include "Wire.h"
-#include "PS4controls.h"
 #include "motor.h"
+#include "PS4controls.h"
+
 
 /*
     UNO BLE -->     DC:54:75:C3:D9:EC   -
@@ -28,13 +29,13 @@
 
 void setup() {
     Serial.begin(115200);
-	Serial.print("Wemos Lolin32 lite 4wd car + ps4 BLUE");
+	Serial.print("UNO 4wd car + ps4 BLUE");
+	PS4controls::PS4setup();
 	Motor::motor_setup();
-    PS4controls::PS4setup();
 }
 
 void loop() {
-    PS4controls::PS4loop();
+	PS4controls::PS4loop();
 }
 
 
