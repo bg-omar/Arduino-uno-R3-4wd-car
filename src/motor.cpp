@@ -74,11 +74,17 @@ void Motor::motor_setup() {
 
 
 	Serial.print("i2c make PCF8574 ");
-	for (uint8_t p=0; p<8; p++) {
-        pcf.pinMode(p, OUTPUT);
-		Serial.print(p);
-		Serial.print(", ");
-    }
+	pcf.pinMode(0, OUTPUT);
+	pcf.pinMode(1, OUTPUT);
+	pcf.pinMode(2, OUTPUT);
+	pcf.pinMode(3, OUTPUT);
+	pcf.pinMode(4, OUTPUT);
+	pcf.pinMode(5, OUTPUT);
+	pcf.pinMode(6, OUTPUT);
+	pcf.pinMode(7, OUTPUT);
+
+
+
 	Serial.println(" ");
     delay(500);
 }

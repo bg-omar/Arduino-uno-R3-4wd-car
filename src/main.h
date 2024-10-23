@@ -33,6 +33,7 @@
 class main {
 public:
 
+	static int Switch_8_State;
 };
 
 
